@@ -103,7 +103,7 @@
         </h1>
         <h2 style="font-family: verdana; color:red;text-align: center;">
             <p>
-                <a href="#BO" style="text-decoration: none;" title="two">
+                <a href="#six" style="text-decoration: none;" title="two">
                     two
                     <!-- 链接到同一页面的其他位置，通过#BO这个锚点 -->
                 </a>
@@ -128,7 +128,9 @@
             five
         </h5>
         <h6 style="text-align: center;">
-            six
+            <a id="six" name="six">
+                six
+            </a>
         </h6>
         <!-- <p> 与 </p> 之间的文本被显示为段落,浏览器会自动地在段落的前后添加空行-->
         <h1 style="text-align: center;">
@@ -150,6 +152,15 @@
             <span class="red">
                 广工
             </span>
+        </p>
+        <hr/>
+        <h1 style="text-align: center;text-align: center;">
+            anchor锚的使用
+        </h1>
+        <p style="text-align: center;">
+            <a href="#anchor">
+                跳转到锚,锚在插入图片实例下面
+            </a>
         </p>
         <hr/>
         <h1 style="text-align: center;">
@@ -203,6 +214,11 @@
         <h1 style="text-align: center;font-size: 30px">
             插入图片示例
         </h1>
+        <p>
+            <a id="anchor" name="anchor" title="接受锚">
+                接受锚
+            </a>
+        </p>
         <p>
             插入一个jpg图片
             <img height="120" src="C:\Users\Public\Pictures\Sample Pictures\Desert.jpg" width="300"/>
@@ -311,7 +327,7 @@
         </h1>
         <p>
             <!-- 定义了一个锚点，可以理解为一个标记，同页面的内容要跳转到这里只需要引用这个锚点就可以-->
-            <a name="BO">
+            <a id="BO" name="BO">
             </a>
             <b>
                 This text is bold
