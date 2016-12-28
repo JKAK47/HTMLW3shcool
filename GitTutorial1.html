@@ -4,7 +4,7 @@
         <meta charset="utf-8"/>
         <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
         <title>
-            GitTutorial
+            GitTutorial One
         </title>
         <link href="" rel="stylesheet">
         </link>
@@ -35,7 +35,7 @@
 
         		color: black;
         		font-size: 23px;
-        		text-align: center;
+        		text-align: left;
         		font-weight: bold;
         	}
         	.displaytext{
@@ -174,7 +174,7 @@
                         <a id="version" name="version">
                             版本回退
                         </a>
-                        ，在git中后悔药是git reset命令，比如回退到上个版本；语法形式：git reset --hard HEAD^^^ 其中多少个^表示回退到第几个版本，只有一个^表示回退到上一个版本，也就是上一个提交版本；head表示当前版本
+                        ，在git中后悔药是git reset命令，比如回退到上个commit版本；语法形式：git reset --hard HEAD^^^ 其中多少个^表示回退到第几个版本，只有一个^表示回退到上一个版本，也就是上一个提交版本；head表示当前版本
                         <pre style="font-size: 35px">git reset --hard HEAD^</pre>
                         <img alt="git reset" src="img/gitreset.jpg">
                         </img>
@@ -407,10 +407,71 @@
                             错误发生在远程git仓库
                         </b>
                         <br/>
-                        提交推送到远程版本库,真的很惨了。
+                        提交推送到远程版本库,真的很惨了。你没有权限撤销了。
                     </p>
                 </li>
             </ol>
+        </div>
+        <h2 class="displayh2">
+            1.4 远程仓库
+        </h2>
+        <div name="repo">
+            <p>
+                <p class="displayp">
+                    同步到远程git仓库
+                </p>
+                <p>
+                    现在的情景是，你已经在本地创建了一个Git仓库后，又想在GitHub创建一个Git仓库，并且让这两个仓库进行远程同步，这样，GitHub上的仓库既可以作为备份，又可以让其他人通过该仓库来协作，真是一举多得.
+                    <a href="http://blog.csdn.net/jq_ak47/article/details/53894173" style="text-decoration: none;" target="_black">
+                        本地git仓库内容同步到远程git仓库
+                    </a>
+                </p>
+            </p>
+            <p>
+                <p class="displayp">
+                    从远程git仓库克隆到本地电脑
+                </p>
+                <p>
+                    登陆GitHub，创建一个新的仓库，名字叫cloneDemo:
+                    <br/>
+                    <img alt="clone" src="img/clone.jpg"/>
+                    <br/>
+                    我们勾选
+                    <b style="color: red;">
+                        Initialize this repository with a README
+                    </b>
+                    ，这样GitHub会自动为我们创建一个README.md文件。创建完毕后，可以看到README.md文件：
+                    <br/>
+                    <img alt="仓库新建" src="img/repo.jpg"/>
+                    <br/>
+                    <p>
+                        现在，远程库已经准备好了，下一步是用命令git clone从远程git仓库克隆一个本地库：
+                        <br/>
+                        git支持两种协议SSH,Https两种，所以同一个项目有两个路径。
+                        <ul>
+                            <li>
+                                第一种SSH协议方式git clone ,先从github上面获取到项目的ssh协议的项目地址，然后在本地你存放项目的目录下打开Git Bash 窗口，键入git clone SSH协议项目地址;如下面一样
+                                <br/>
+                                <b style="font-size: 25px;font-weight: bold;color: red;">
+                                    git clone git@github.com:JKAK47/cloneDemo.git
+                                </b>
+                                <img alt="sshclone" src="img/sshclone.jpg"/>
+                            </li>
+                            <li>
+                                第二种HTTPS协议方式git clone ,先从github上面获取到项目的HTTPS协议的项目地址，然后在本地你存放项目的目录下打开Git Bash 窗口，键入git clone HTTPS协议项目地址;如下面一样
+                                <br/>
+                                <b style="font-size: 25px;font-weight: bold;color: red;">
+                                    git clone https://github.com/JKAK47/cloneDemo.git
+                                </b>
+                                <img alt="httpsclone" src="img/httpsclone.jpg"/>
+                            </li>
+                        </ul>
+                    </p>
+                </p>
+                <h3 class="displayh3">
+                    要克隆一个仓库，首先必须知道仓库的地址，然后使用git clone命令克隆。Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
+                </h3>
+            </p>
         </div>
     </body>
 </html>
