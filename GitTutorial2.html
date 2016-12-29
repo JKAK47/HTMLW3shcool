@@ -4,7 +4,7 @@
         <meta charset="utf-8"/>
         <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
         <title>
-            GitTutorial Two
+            Git 分支教程
         </title>
         <link href="" rel="stylesheet"/>
         <!-- 定义一些全局性的 样式格式 -->
@@ -79,6 +79,27 @@
                 <p>
                     首先，我们创建dev分支，然后切换到dev分支：
                     <br/>
+                    <b>
+                        创建分支
+                    </b>
+                    <ul>
+                        <li>
+                            git branch
+                            <pre>没有参数，显示本地版本库中所有的本地分支名称。当前检出分支的前面会有星号。</pre>
+                        </li>
+                        <li>
+                            git branch newname
+                            <pre>在当前分支上新建分支一个名叫newname的分支。</pre>
+                        </li>
+                        <li>
+                            git checkout newname
+                            <pre>即切换到名叫newname的分支</pre>
+                        </li>
+                        <li>
+                            git checkout –b newname master
+                            <pre>命令将上面两个命令功能合并：在master分支上创建新分支newname分支并切换到该分支</pre>
+                        </li>
+                    </ul>
                     <pre>git checkout -b dev 创建dev分支并切换到dev分支</pre>
                     git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
                     <br/>
@@ -98,14 +119,14 @@
                     <br/>
                     dev分支完成了工作后切换回master分支；git checkout master命令完成切换
                     <pre style="font-weight: blod;font-size: 25px;"> git checkout master</pre>
-                    切换回master分支后，再查看一个readme.txt文件，刚才添加的内容不见了！因为那个提交是在dev分支上，而master分支此刻的提交点并没有变还是指向上次commit提交的地方：
+                    切换回master分支后，再查看一个readme.txt文件，刚才dev分支下添加的内容不见了！因为那个提交是在dev分支上，而master分支此刻的提交点并没有变还是指向上次commit提交的地方：
                     <img alt="devmaster" src="img/devmaster.jpg"/>
                     <br/>
                     现在，我们把dev分支的工作成果合并到master分支,git merge命令用于将指定分支合并到当前分支。合并后，再查看readme.txt的内容，就可以看到，和dev分支的最新提交是完全一样的。注意到上面的Fast-forward信息，Git告诉我们，这次合并是“快进模式”，也就是直接把master指向dev的当前提交，所以合并速度非常快。当然，也不是每次合并都能Fast-forward，我们后面会讲其他方式的合并。使用的命令如下图：
                     <br/>
                     <pre> git checkout master 切换到master分支</pre>
                     <pre>git merge dev 合并dev分支内容到当前master分支</pre>
-                    <pre> git branch -d dev 删除dev分支</pre>
+                    <pre> git branch -d dev 删除dev分支( git branch -D dev 强制删除dev分支)</pre>
                     <pre> git branch 查看当前分支</pre>
                     <img alt="merge" src="img/merge.jpg"/>
                 </p>
@@ -118,7 +139,7 @@
                     <pre>创建分支：git branch name</pre>
                     <pre>切换分支：git checkout name</pre>
                     <pre>创建+切换分支：git checkout -b name</pre>
-                    <pre>合并某分支到当前分支：git merge name</pre>
+                    <pre>合并name到当前分支：git merge name</pre>
                     <pre>删除分支：git branch -d name</pre>
                 </p>
             </p>
@@ -131,7 +152,32 @@
                 <b>
                     冲突来源：
                 </b>
-                当两条分支对同一个文件的同一个文本块进行了不同的修改，并试图合并时，Git不能自动合并的，称之为冲突(conflict)。解决冲突需要人工处理。
+                <ul>
+                    <li>
+                        第一种情况：当本地git仓库两个分支分别对同一文件做了修改会产生冲突,两条分支对同一个文件进行了修改，当一个分支试图合并到另一个分支时，Git不能自动合并的，称之为冲突(conflict)。解决冲突需要人工处理。
+                    </li>
+                    <li>
+                        第二种冲突情况发生在远程git仓库中的A文件被小A更改并push到远程git仓库，我现在想推送到远程git仓库就不行了;因为你的小伙伴A的最新提交和你试图推送的提交有冲突解决办法: Git已经提示我们，先用git pull把最新的提交从origin/dev抓下来，然后，在本地git仓库合并解决冲突，再push到远程git仓储中：
+                        <p>
+                            命令执行流程：
+                            <br/>
+                            <ul>
+                                <li>
+                                    git pull
+                                </li>
+                                <li>
+                                    如果上面命令执行不下来，一般情况是新建本地分支与远程分支关联问题：git branch --set-upstream命令关联本地分支和远程分支。
+                                    <pre> git branch --set-upstream-to(--track) master origin/master</pre>
+                                </li>
+                                <li>
+                                    再次git push origin master(dev) 将本地分支下的所有更改提交到github上面
+                                </li>
+                            </ul>
+                            下图是说明了我是怎么解决这个问题的<br/>
+                            <img alt="conflict local and remote" src="img/conflictlocalandremote.jpg"/>
+                        </p>
+                    </li>
+                </ul>
             </p>
             <p>
                 下面做一个实验：
@@ -141,7 +187,8 @@
                 <b>
                     Creating a new branch fe is quick AND simple.
                 </b>
-                然后在fe分支上面提交,命令执行如下：在fe分支下完成提交到git仓库
+                然后在fe分支上面提交,命令执行如下：在fe分支下完成提交到本地git仓库
+                <br/>
                 <img alt="fe" src="img/fe.jpg"/>
             </p>
             <p>
@@ -200,11 +247,17 @@
                 2.3、 Git分支管理策略
             </h2>
             <p>
-                通常git合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后会丢掉分支信息。也就是通过git log --graph --pretty=oneline --abbrev-commit命令看不到合并的信息
+                通常git合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后会丢掉分支信息。也就是通过
+                <b>
+                    git log --graph --pretty=oneline --abbrev-commit
+                </b>
+                命令看不到合并的信息
             </p>
             <p>
                 现在我们做一个实验，创建一个dev分支并以dev分支对readme.md文件进行更改，比如加：dev merge strategy demo;修改后保存并提交再次切换回master分支合并刚才dev分支增加的内容;合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并操作流程如下图：
                 因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+                <br/>
+                <pre><b>git merge --no-ff -m "merge with no-ff  http dev branch" dev</b> 命令用于以'recursive' strategy.策略进行合并, --no-ff参数表示禁用Fast forward</pre>
                 <br/>
                 <p style="text-align: center;">
                     <img alt="mergestrategy" src="img/mergestrategy.jpg"/>
@@ -331,7 +384,7 @@
                     <pre>git branch -D Spider</pre>
                     <img alt="spider delete" src="img/spiderd.jpg"/>
                     <br/>
-                    如果这个新功能获得了市场热烈的反馈，那么一切顺利的话，feature分支和bug分支流程是类似的，合并到master分支，然后删除feature分支。
+                    如果这个新功能获得了市场热烈的反馈，那么一切顺利的话，feature分支和bug分支流程是类似的，先合并到dev分支在合并到master分支，然后删除feature分支。
                 </li>
             </ul>
         </div>
@@ -350,7 +403,7 @@
             <p>
                 推送分支就是将本地的git仓库上面的一个分支推送到远程git仓库(比如github)上面，推送时，要指定本地分支，这样，Git就会把该本地分支推送到远程库对应的远程分支上：
                 <pre>git push origin master 将本地master分支推送到远程git仓库</pre>
-                <pre>git push origin dev 将本地dev分支推送到远程git仓库</pre>
+                <pre>git push origin dev 将本地dev分支推送到远程git仓库并在远程git仓库创建dev分支</pre>
                 将一个dev分支修改的文件推送到github上面
                 <br/>
                 <img alt="" src="img/pushdev.jpg"/>
@@ -413,6 +466,10 @@ Did you intend to checkout 'origin/dev' which can not be resolved as commit?
                     下图记录了错误解决过程
                     <br/>
                     <img alt="pull dev error" src="img/pulldeverror.jpg"/>
+                    <br/>
+                    关于这两个命令的不同
+                    <pre>  git checkout -b mybranch origin/abranch will create mybranch and track origin/abranch</pre>
+                    <pre>git checkout --track origin/abranch will only create 'abranch', not a branch with a different name.</pre>
                 </p>
                 <p>
                     然后你的小伙伴就可以在dev分支上面做修改，然后push到远程git仓库。第一次推送过程中他提示你填写你的github账户名和登入密码
